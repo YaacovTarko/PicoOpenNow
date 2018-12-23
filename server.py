@@ -18,7 +18,14 @@ gmaps = googlemaps.Client(key=apikey)
 open_hours = {}
 for restaurant_name in names["restaurants"]:
 	#place_info = gmaps.find_place(input=[restaurant_name], input_type="textquery", fields=["opening_hours", "formatted_address"])
-	search_results = gmaps.find_place(input=[restaurant_name], input_type="textquery", location_bias="point:34.054831,-118.383854", fields=["place_id"])["candidates"]
+	lat_lng_ctr = "34.054831,-118.383854"
+	radius = "5000" #in meters 
+	location_bias_str = "circle:" + radius + "@" + lat_lng_ctr
+	search_results = gmaps.find_place(input=[restaurant_name], input_type="textquery", location_bias=location_bias_str, fields=["place_id"])["candidates"]
+
+	#debug_results = gmaps.place(place_id=search_results[0]["place_id"], fields=["place_id", "geometry", "formatted_address", "name"])
+	#print debug_results
+
 	if len(search_results) == 0:
 		print "Error: No results found for " + restaurant_name
 	else:
@@ -32,8 +39,6 @@ for restaurant_name in names["restaurants"]:
 		hours = place_data["opening_hours"]["weekday_text"]
 		place_location = place_data["geometry"]["location"]
 		open_hours[restaurant_name] = {"Hours" : hours, "gps" : place_location};
-
-print open_hours
 
 @app.route('/')
 def index():
