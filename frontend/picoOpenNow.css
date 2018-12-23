@@ -1,7 +1,7 @@
 h1{
 	text-align: center;
 }
-.picoPicture{
+#picoPicture{
 	z-index: 0;
 	max-width: 100%;
 

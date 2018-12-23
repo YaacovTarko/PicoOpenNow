@@ -20,5 +20,10 @@ function render() {
 	const minLatitude = 34.051111;
 	const maxLongitude =  -118.375938;
 	const minLongitude = -118.403798;
-
+	if(isReady){
+		for (const restaurant of Object.keys(places_and_times)){
+			console.log(restaurant);
+			console.log(places_and_times[restaurant])
+		}
+	}
 }
