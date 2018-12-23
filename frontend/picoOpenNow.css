@@ -2,7 +2,7 @@ h1{
 	text-align: center;
 }
 .picoPicture{
-	z-index: 1;
+	z-index: 0;
 	max-width: 100%;
 
 }
@@ -15,6 +15,7 @@ h1{
 }
 .dot{
 	position: absolute;
+
 }
 
 /*tooltip from W3 schools*/
@@ -26,7 +27,7 @@ h1{
 }
 
 /* Tooltip text */
-.tooltip .tooltiptext {
+.tooltiptextgotKosher {
   visibility: hidden;
   background-color: black;
   color: #fff;
@@ -34,17 +35,14 @@ h1{
   padding: 5px 0;
   border-radius: 6px;
    width: 120px;
-  bottom: 100%;
-  left: 50%; 
-  margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
- 
-  /* Position the tooltip text - see examples below! */
+  top: 50%; 
+  right: 60%;
   position: absolute;
-  z-index: 1;
+  z-index: 3;
 }
 
 /* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
+.dot:hover + .tooltiptextgotKosher {
   visibility: visible;
 }
 
