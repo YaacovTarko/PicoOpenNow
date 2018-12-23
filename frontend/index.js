@@ -20,10 +20,22 @@ function render() {
 	const minLatitude = 34.051111;
 	const maxLongitude =  -118.375938;
 	const minLongitude = -118.403798;
+
+	const picoImage = document.getElementById('picoPicture');
+
+	const maxPixHeight = picoImage.height;
+	const minPixHeight = 0;
+	const maxPixWidth = picoImage.width;
+	const minPixWidth = 0;
+
 	if(isReady){
 		for (const restaurant of Object.keys(places_and_times)){
 			console.log(restaurant);
 			console.log(places_and_times[restaurant])
+
+			const day = today.getDay();
+			console.log(day);
+
 		}
 	}
 }
