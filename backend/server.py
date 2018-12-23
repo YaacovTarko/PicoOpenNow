@@ -1,7 +1,35 @@
 from flask import Flask, request
-from enum import Enum
+import googlemaps
+import json
 
 app = Flask(__name__)
+
+with open('apikey.txt', 'r') as apiKeyFile:
+  apikey = apiKeyFile.read()
+
+#load restaurant names from file where they're stored
+with open('restaurantNames.json', 'r') as nameFile:
+	#names is a dict containing "restaurants" : ["r1", "r2", "r3"]
+	names = json.load(nameFile)
+
+gmaps = googlemaps.Client(key=apikey)
+
+#look up each restaurant in the google places API and store its hours
+open_hours = {}
+for restaurant_name in names["restaurants"]:
+	#place_info = gmaps.find_place(input=[restaurant_name], input_type="textquery", fields=["opening_hours", "formatted_address"])
+	search_results = gmaps.find_place(input=[restaurant_name], input_type="textquery", location_bias="point:34.054831,-118.383854", fields=["place_id"])["candidates"]
+	if len(search_results) == 0:
+		print "Error: No results found for " + restaurant_name
+	else:
+		if len(search_results) > 1:
+			print "Warning: Multiple results found for " + restaurant_name + ". Going with most probable result"
+		place_id = search_results[0]["place_id"]
+		# weekday_text results in this output format, if you want to change the format use a different one
+		hours_for_place = gmaps.place(place_id=place_id, fields=["opening_hours"])["result"]["opening_hours"]["weekday_text"]
+		open_hours[restaurant_name] = hours_for_place
+
+print open_hours
 
 @app.route('/')
 def hello_world():
@@ -9,21 +37,11 @@ def hello_world():
 
 @app.route('/restaurants')
 def get_restaurant_names():
-	return "['Jeff\'s Gourmet', 'PKD', 'Shalom Pizza']"
-
-class Weekday(Enum):
-	sun = 1
-	mon = 2
-	tues = 3
-	wed = 4
-	thurs = 5
-	fri = 6
-	sat = 7
+	return json.dumps(names)
 
 @app.route('/hours')
 def get_hours():
-	return {"Jeff's" : {"Monday" : }}
-	return "['Jeff\'s Gourmet', 'PKD', 'Shalom Pizza']"
+	return json.dumps(open_hours)
 
 if __name__ == '__main__':
    app.run()
