@@ -9,6 +9,7 @@ fetch(url).then(function(response){
 	return response.json();
 }).then(function(json){
 	places_and_times = json;
+	isReady=true;
 	render();
 });
 
