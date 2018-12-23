@@ -16,9 +16,9 @@ fetch(url).then(function(response){
 
 // call this function every time the page resizes
 function render() {
-	const maxLatitude = null;
-	const minLatitude = null;
-	const maxLongitude = null;
-	const minLongitude = null;
+	const maxLatitude = 34.058870;
+	const minLatitude = 34.051111;
+	const maxLongitude =  -118.375938;
+	const minLongitude = -118.403798;
 
 }
