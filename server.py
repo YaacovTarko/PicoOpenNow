@@ -2,7 +2,7 @@ from flask import Flask, request, send_from_directory
 import googlemaps
 import json
 
-app = Flask(__name__, static_url_path="/frontend/")
+app = Flask(__name__, static_folder="frontend/")
 
 with open('config/apikey.txt', 'r') as apiKeyFile:
   apikey = apiKeyFile.read()
@@ -23,8 +23,9 @@ for restaurant_name in names["restaurants"]:
 		print "Error: No results found for " + restaurant_name
 	else:
 		if len(search_results) > 1:
+			#todo: select result geographically closest to pico-robertson
 			print "Warning: Multiple results found for " + restaurant_name + ". Going with most probable result"
-			print search_results
+
 		place_id = search_results[0]["place_id"]
 		# weekday_text results in this output format, if you want to change the format use a different one
 		hours_for_place = gmaps.place(place_id=place_id, fields=["opening_hours"])["result"]["opening_hours"]["weekday_text"]
@@ -34,7 +35,11 @@ print open_hours
 
 @app.route('/')
 def index():
-   return 'Hello World'
+   return send_from_directory(directory=app.static_folder, filename="index.html")
+
+@app.route('/<path:path>')
+def send_static(path):
+   return send_from_directory(directory=app.static_folder, filename=path)
 
 @app.route('/restaurants')
 def get_restaurant_names():
