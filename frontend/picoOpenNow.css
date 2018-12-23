@@ -1,0 +1,63 @@
+h1{
+	text-align: center;
+}
+.picoPicture{
+	z-index: 1;
+	max-width: 100%;
+
+}
+.map{
+	position: relative;
+	width: 100%;
+	height: 443px;
+	max-width: 1299px;
+	margin: 0 auto;
+}
+.dot{
+	position: absolute;
+}
+
+/*tooltip from W3 schools*/
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+   width: 120px;
+  bottom: 100%;
+  left: 50%; 
+  margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+ 
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+
+#gotKosher{
+	top: 50%; 
+	right: 60%;
+}
+#burgerBar{
+	top: 50%; 
+	right: 50%;
+}
+#jeffs{
+	top: 50%; 
+	right: 40%;
+}
