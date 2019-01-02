@@ -24,18 +24,35 @@ function render() {
 	const picoImage = document.getElementById('picoPicture');
 
 	const maxPixHeight = picoImage.height;
-	const minPixHeight = 0;
 	const maxPixWidth = picoImage.width;
-	const minPixWidth = 0;
 
-	if(isReady){
-		for (const restaurant of Object.keys(places_and_times)){
-			console.log(restaurant);
-			console.log(places_and_times[restaurant])
+	if(isReady) {
+			const day = new Date();
+			const dayOfWeek = day.getDay();
+			console.log(dayOfWeek);
 
-			const day = today.getDay();
-			console.log(day);
+			const hour = day.getHours();
+			console.log(hour);
+			const minutes = day.getMinutes();
+			console.log(minutes);
 
+		for (const restaurant of Object.keys(places_and_times)) {
+
+			for (const eachDay of places_and_times[restaurant]['Hours']) {
+				// todo: use date info to decide whether restaraunt is open or closed, and visualize it that way
+				// console.log(eachDay) 
+			}
+
+			// plots points on image based on GPS location
+			console.log(places_and_times[restaurant].gps);
+			const gps = places_and_times[restaurant].gps
+			// values between 0 and 1 that indicate where on the pico image the dot should be
+			relativeY = (gps.lat - maxLatitude) / (minLatitude - maxLatitude);
+			relativeX = (gps.lng - maxLongitude) / (minLongitude - maxLongitude);
+			// values between 0 and maxPixHeight/Width which indicate the pixel the dot should be centered on 
+			// imageXPos = relativeX * maxPixWidth;
+			// imageYPos = relativeY * maxPixHeight;
+			console.log(relativeX, relativeY, restaurant)
 		}
 	}
 }
